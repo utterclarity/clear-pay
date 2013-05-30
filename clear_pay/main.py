@@ -13,6 +13,8 @@ from flask import (Flask, render_template, request, session, url_for,
 from flask.ext.wtf import Form
 from wtforms import TextField, PasswordField, IntegerField
 from gevent.pywsgi import WSGIServer
+import blcpy
+
 from cloudfix import CloudFix
 
 
@@ -65,7 +67,7 @@ def put(many=1):
 @app.route("/spawn/<int:many>")
 @app.route("/spawn")
 def spawn(many=1):
-    gevent.joinall([gevent.spawn(worker, i) for i in xrange(many+1)])
+    gevent.joinall([gevent.spawn(worker, i) for i in xrange(many)])
     return "ok!"
 
 

@@ -12,6 +12,15 @@ It might be more beneficial to bind to a unix socket (`-b unix:/tmp/gunicorn-pay
 For more information, check out [other servers](http://flask.pocoo.org/docs/deploying/others/) in the Flask docs.  
 Implemented but not setup yet is a CloudFlare proxy header fix (`cloudfix.CloudFix`), in-case you run behind CloudFlare with nginx setting `CF-Connecting-IP` as is suggested.
 
+config.json
+-----------
+```json
+{
+    "SECRET_KEY": "__secret__",
+    "cloudflare": False
+}
+```
+
 # THIS PROJECT IS UNDER MAJOR DEVELOPMENT!
 We're still working out the kinks in our planning before we begin development.
 
