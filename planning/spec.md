@@ -3,6 +3,8 @@ POST spec
 This refers in part to the diagram, available as `pay_plan_rn.png` (where n is the revision) in the `planning` folder of this repo.  
 __All requests, unless otherwise specified, are `POST`.__
 
+It's noted some of this is unclear, so it will be more thoroughly documented once the system is implemented, with example code given in varying languages.
+
 _Requests are specified as a Ruby hash-table here, purely for effect; these variables should be sent as a POST query._
 ## Step `1.`
 ```ruby
@@ -21,8 +23,8 @@ _Requests are specified as a Ruby hash-table here, purely for effect; these vari
 {
     :price => n,
     :api_key => :my_key,
-    :listen_url => "http://optional.listen/addr",
-    :payout_addr => "optional.payout.addr",
+    :listen_url => "http://seller.listen/url",
+    :payout_addr => "seller.payout.addr",
 
     # Seller can set sell_x variables which are stored
     # and sent to Seller when the payment goes through.
