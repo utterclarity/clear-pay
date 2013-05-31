@@ -15,21 +15,6 @@ div[id^="block-"] h2:after {
 
 /***/
 
-#spinner {
-    /*display: inline-block;*/
-    padding: 5px;
-    float: left;
-    display: none;
-}
-
-#retry-query {
-    display: none;
-}
-
-#spinner:hover, #retry-query:hover, #refresh-query:hover {
-    background: none;
-}
-
 .transition {
     transition: all 0.15s linear 0s;
 }
