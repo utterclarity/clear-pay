@@ -3,6 +3,10 @@ clear-pay
 An IPN-like style payment middle-man for BlooCoin.  
 Called __Clear Pay__, but sometimes referred to simply as __Pay__.
 
+# THIS PROJECT IS UNDER MAJOR DEVELOPMENT!
+We're still working out the kinks in our planning before we begin development.  
+You're free to run this, but be aware it might be lacking full implementations, or be riddled with bugs and developer testing code.
+
 Running
 -------
 Pay is best run via gunicorn:  
@@ -23,15 +27,10 @@ config.json
 }
 ```
 
-# THIS PROJECT IS UNDER MAJOR DEVELOPMENT!
-We're still working out the kinks in our planning before we begin development.
 
 ## Expected dependencies
-+ `Python` (2.7.3+)
-+ `gevent` (w/ `gunicorn`?)
-+ `pysqlw` / `pymongo` (undecided)
-+ `blc.py` (from John Smith's [blc.py](https://github.com/jognsmith/blc.py) repo)
-+ `Flask`, `Flask-WTF`, `wtforms`
+You can see the dependencies in the `requirements.txt` file. Install with `pip -r requirements.txt install`  
+I'm not sure if the line for `blc.py` worked (`-e git+git://whatever`), so that might fail spectacularly.
 
 ## Explanation
 Here's a somewhat cryptic explanation of what is planned for Pay: (this is `r1`, and subject to major change)
