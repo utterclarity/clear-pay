@@ -27,6 +27,9 @@ config.json
 }
 ```
 
+nginx conf
+----------
+This might explain how best to run it behind nginx (which is definitely suggested), but at the moment it's... got nothing.
 
 ## Expected dependencies
 You can see the dependencies in the `requirements.txt` file. Install with `pip -r requirements.txt install`  

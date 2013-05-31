@@ -15,35 +15,33 @@ from wtforms import (TextField, PasswordField, IntegerField,
                      BooleanField)
 from gevent.pywsgi import WSGIServer
 from recaptcha.client import captcha
-import pymongo
-import blcpy
+
 
 from cloudfix import CloudFix
+import key_manager
 
 
 class RegisterForm(Form):
     email = TextField("e-mail (required)", [validators.Required()])
     password = PasswordField("password (optional)")
-    recover = BooleanField("recovering?")
+    recover = BooleanField("recover lost key")
 
 
 # Monkey-patch for dev testing.
-blcpy._Transaction._server = ("monkey.dev", 3122)
+# (this just points to my developer bloocoin-server)
+#import blcpy
+#blcpy._Transaction._server = ("monkey.dev", 3122)
 
 app = Flask(__name__)
 config = {}
 with open('config.json', 'rb') as f:
     config = json.load(f)
     app.config.update(**config)
-    # Specifically this causes shitloads of issues if it's not str()
     app.config['SECRET_KEY'] = str(config['SECRET_KEY'])
     if config['cloudflare'] is True:
         app.wsgi_app = CloudFix(app.wsgi_app)
 
-mong = pymongo.MongoClient()
-db = mong.clear_pay
-
-jobs = Queue()
+#jobs = Queue()
 
 
 @app.route("/")
@@ -75,8 +73,26 @@ def register():
         if not response.is_valid:
             flash("The captcha typed was incorrect.", "error")
             return render()
-        #kw['recover_key'] = key
-        flash("We haven't implemented this yet, sorry!", "info")
+
+        if form.recover.data:
+            if not key_manager.email_used(form.email.data):
+                flash("Sorry, that email isn't in use.", "error")
+                return render()
+            if not key_manager.recoverable(form.email.data, form.password.data):
+                flash("Sorry, the password given was incorrect.", "error")
+                return render()
+            kw['recover_key'] = key_manager.find(form.email.data)['key']
+            return render()
+
+        if key_manager.email_used(form.email.data):
+            flash("Sorry, that email is already in use. Did you mean to recover?", "error")
+            return render()
+        key = key_manager.add(form.email.data, form.password.data)
+        if not key:
+            flash("Something went wrong generating an API key, please try again.", "error")
+            return render()
+        flash("Successfully generated an API key, here you go!", "success")
+        kw['recover_key'] = key
     return render()
 
 
