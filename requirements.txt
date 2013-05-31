@@ -1,0 +1,7 @@
+flask
+wtforms
+flask-wtf
+gevent
+pymongo
+-e git+git://github.com/jognsmith/blc.py.git#egg=blcpy
+requests-client

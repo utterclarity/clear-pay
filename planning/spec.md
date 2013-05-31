@@ -45,7 +45,8 @@ _Requests are specified as a Ruby hash-table here, purely for effect; these vari
 # Pay -> Seller
 {
     :address => "PAY-SOME123TRANSACTION123ADDR",
-    :price => n
+    :price => n,
+    :txn_id => id,
 }
 ```
 
@@ -87,6 +88,7 @@ _Requests are specified as a Ruby hash-table here, purely for effect; these vari
 {
     :amount => n,
     :from => :from_addr,
+    :txn_id => id,
 
     # All the variables the Seller gave to Pay
     :sell_foo => "something"
@@ -100,6 +102,7 @@ _Requests are specified as a Ruby hash-table here, purely for effect; these vari
     :_confirm => :anything,
     :amount => n,
     :from => :from_addr,
+    :txn_id => id
 
     # All the variables the Seller gave to Pay
     :sell_foo => "something"

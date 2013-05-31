@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+    <script type="text/javascript" src="{{ url_for('.static', filename='index.js') }}"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        Recaptcha.create(
+            "{{ recaptcha_public_key }}",
+            "recaptcha-goes-here",
+            {
+                theme: "white",
+                callback: function() {}
+            }
+        );
+    });
+    </script>
+    <style>
+    .sh {
+        width: 55px;
+        font-weight: bold;
+        text-transform: lowercase;
+        margin-top: 5px;
+    }
+    .grease-me-up-woman {
+        /*
+        Willie: Lunch Lady Doris, have you got any grease?
+        Lunch Lady Doris: Yes. Yes, we do.
+        Willie: THEN GREASE ME UP, WOMAN!
+        Lunch Lady Doris: Okie-dokie.
+        */
+        margin-top: 20px;
+    }
+    .key {
+        font-weight: bold;
+    }
+    </style>
+{% endblock %}
+
+{% block title %}register{% endblock %}
+
+{% block content %}
+<p class="grease-me-up-woman">
+    This form allows developers (<i>Not a developer</i>? Don't worry about this page!) to register
+    for an API key with the clear-pay system.<br> 
+    No <span title="Just elifs"><b>ifs</b></span>, no <span title="Just butts!"><b>buts</b></span>, and <span title="Just be sure to follow the TOS!"><b>minimal restrictions</b></span>; you can always have a key if you ask for one.<br>1
+</p>
+<p>
+    The password is optional, and only used in case you wish to recover your API key at a later date.<br>
+    <b>If you don't give a recovery password, you won't be able to recover your API key through here!</b><br>
+    If you wish to recover your API key, simply fill in this form with the same details as you did on registration, but check the <i>recover</i> box.
+</p>
+<p>
+    {% if recover_key %}
+    Your API key is: <span class="key">{{ recover_key }}</span><br>
+    {% endif %}
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <b>{{ form.email.label }}</b><br>
+        {{ form.email() }}<br>
+        <b>{{ form.password.label }}</b><br>
+        {{ form.password() }}<br>
+        <div id="recaptcha-goes-here"></div>
+        <input type="submit" class="button sh" value="register">
+        <b>{{ form.recover.label }}</b>
+        {{ form.recover() }}
+    </form>
+</p>
+{% endblock %}

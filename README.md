@@ -17,7 +17,9 @@ config.json
 ```json
 {
     "SECRET_KEY": "__secret__",
-    "cloudflare": False
+    "cloudflare": false,
+    "recaptcha_public": "your_recaptcha_public_key",
+    "recaptcha_private": "your_recaptcha_private_key"
 }
 ```
 
