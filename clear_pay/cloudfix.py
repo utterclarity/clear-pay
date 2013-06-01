@@ -11,7 +11,7 @@ class CloudFix(object):
 
     def __call__(self, environ, start_response):
         connecting_ip = environ.get('HTTP_CF_CONNECTING_IP', '')
-        if host:
+        if connecting_ip:
             environ['REMOTE_ADDR'] = connecting_ip
         return self.app(environ, start_response)
-# app.wsgi_app = CustomProxyFix(app.wsgi_app)
+# app.wsgi_app = CloudFix(app.wsgi_app)
