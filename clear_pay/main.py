@@ -78,18 +78,21 @@ def register():
             if not key_manager.email_used(form.email.data):
                 flash("Sorry, that email isn't in use.", "error")
                 return render()
-            if not key_manager.recoverable(form.email.data, form.password.data):
+            # I BEAT YOU, PEP8!!
+            rec = key_manager.recoverable(form.email.data, form.password.data)
+            if not rec:
                 flash("Sorry, the password given was incorrect.", "error")
                 return render()
             kw['recover_key'] = key_manager.find(form.email.data)['key']
             return render()
 
         if key_manager.email_used(form.email.data):
-            flash("Sorry, that email is already in use. Did you mean to recover?", "error")
+            flash("Sorry, that email is already in use.", "error")
+            flash("Did you mean to recover a lost API key?", "info")
             return render()
         key = key_manager.add(form.email.data, form.password.data)
         if not key:
-            flash("Something went wrong generating an API key, please try again.", "error")
+            flash("Something went wrong, please try again.", "error")
             return render()
         flash("Successfully generated an API key, here you go!", "success")
         kw['recover_key'] = key

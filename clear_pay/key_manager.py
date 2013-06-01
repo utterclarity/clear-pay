@@ -8,11 +8,14 @@ import pymongo
 mong = pymongo.MongoClient()
 db = mong.clear_pay
 
+
 def exists(key):
     return db.api_keys.find({"key": key}).count() > 0
 
+
 def email_used(email):
     return db.api_keys.find({"email": email}).count() > 0
+
 
 def delete(value, field="email"):
     """ The field can be set to 'email', 'key', or whatever
@@ -21,10 +24,12 @@ def delete(value, field="email"):
     rem = db.api_keys.remove({field: value}, True)
     return rem['n'] == 1
 
+
 def find(email):
     if not email_used(email):
         return False
     return db.api_keys.find_one({"email": email})
+
 
 def add(email, password, key=None, created=None, state=None):
     if email_used(email):
@@ -49,6 +54,7 @@ def add(email, password, key=None, created=None, state=None):
     if db.api_keys.insert(data):
         return key
     return False
+
 
 def recoverable(email, password):
     if not email_used(email):
