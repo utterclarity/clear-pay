@@ -18,6 +18,7 @@ from recaptcha.client import captcha
 
 
 from cloudfix import CloudFix
+#from database import db
 import key_manager
 
 

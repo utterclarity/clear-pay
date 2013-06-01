@@ -3,10 +3,8 @@ import time
 import uuid
 
 from werkzeug.security import (generate_password_hash, check_password_hash)
-import pymongo
 
-mong = pymongo.MongoClient()
-db = mong.clear_pay
+from database import db
 
 
 def exists(key):
